@@ -29,7 +29,7 @@ Wir vermuten, dass **Hyper-V ein Typ-1-Hypervisor** ist, da er die Hardware dire
 ![Prozessor Problem](Cores-Error.png)
  
 ### Fehler RAM
-![Fehler RAM](RAM-Error.png)
+![Fehler RAM](RAM-Erorr.png)
  
 ---
 
