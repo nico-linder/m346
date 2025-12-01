@@ -1,0 +1,41 @@
+#cloud-config
+users:
+  - name: ubuntu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDOPezoEmP9DauvT+SRfKosjmiWBwzEX7OJ4JXmZIslDxMjOtBZ98XKalqbdvfE3Kybm3sUjX6BPp+2BXfB02mIoUSuzxURbk6sdqwnu95Ii5lNMTdi3NNv/0syP2zk1/owy66l3hf9L+t5KrlXbjzPrqBZmhbzenEapRTi9H9QuIaOl1jV8LBk6X+B+bGksq1OXdlC3V8ENJ5inYhhaYOsNV3gjSoHt0qSVs/DyBfl9f8fWThk/2C3MMxr0+MBdv8Y/779qOfAFZBPMloaDA24BaNojypgQHGq34VC/U1wuF126w1gkbX9JG5Lhfr3HfKcatJFErywO5LVIkhV2Ldx aws-key
+
+ssh_pwauth: false
+disable_root: false
+package_update: true
+packages:
+  - apache2
+  - php
+  - php-mysql
+  - adminer
+  - git
+
+write_files:
+  - path: /var/www/html/db.php
+    content: |
+      <?php
+      error_reporting(E_ALL);
+      ini_set("display_errors", 1);
+
+      $conn = new mysqli("18.206.83.175", "admin", "3737373777", "KN04");
+
+      if ($conn->connect_error) {
+        die("Verbindung fehlgeschlagen: " . $conn->connect_error);
+      }
+
+      echo "Verbindung zur Datenbank erfolgreich!";
+      ?>
+  - path: /var/www/html/info.php
+    content: |
+      <?php phpinfo(); ?>
+
+runcmd:
+  - sudo systemctl restart apache2
+  - sudo a2enconf adminer
+  - sudo systemctl restart apache2

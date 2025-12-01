@@ -1,0 +1,23 @@
+#cloud-config
+users:
+  - name: ubuntu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBHPGqRE3fund31MUFowXo5aDYBiMjgpI12teC//csiLM32MCgqZPvlSvWokiGPDubpBsI/HjoqxZxjOWGxEQzskD7YzpH3LLNewSZCVzkz2cgXS3+zSwkgb9Al9s21/vIQpHIHXZyRHeab+NqjvCD51zPeBTUzSNewYtTc6hiI34pGbts67ushHRwV9mwNxIFngSSI9HL1m6kq37WnIPubJKSk/XLWLSN1T1nmL+FiKbypSf7hi2vKQ9Cf2E0iVphGIxP2GYYnEZ7Gc6oFiOQnulLQlBNxU8VXDzAmKMVchFRpQVTOh+DfiXNg2c3hw2kWP6LgrJHu6hMod5ekM6z aws-key
+
+ssh_pwauth: false
+disable_root: false
+package_update: true
+packages:
+  - mariadb-server
+  - mariadb-client
+
+runcmd:
+  - sudo sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf
+  - sudo systemctl restart mariadb
+  - mysql -u root -e "CREATE DATABASE IF NOT EXISTS KN04;"
+  - mysql -u root -e "DROP USER IF EXISTS 'admin'@'%';"
+  - mysql -u root -e "CREATE USER 'admin'@'%' IDENTIFIED BY '3737373777';"
+  - mysql -u root -e "GRANT ALL PRIVILEGES ON KN04.* TO 'admin'@'%';"
+  - mysql -u root -e "FLUSH PRIVILEGES;"

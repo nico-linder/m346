@@ -1,0 +1,5 @@
+Disc: 8 GB
+
+RAM: 1 GB
+
+vCPUs: 1 vCPU
