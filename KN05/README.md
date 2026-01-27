@@ -42,6 +42,8 @@ Hier sieht man beide neuen Instances und ihre IP's:
 
 ![Instances IP](./instances.png)
 
+Hier sieht man wie ich auf die Seiten zugreifen kann:
+![Sites](./sites.png)
 
 
 
